@@ -19,7 +19,7 @@ https://www.imagemagick.org/download/binaries/ImageMagick-7.0.4-6-Q16-x64-static
 3) Внизу страницы указано как проверить правильность установки и решить возможные проблемы
 https://www.imagemagick.org/script/download.php#windows
 
-4) Переименовать файл исполняемый файл программы magick.exe в convert.exe
+4) Переименовать исполняемый файл программы magick.exe в convert.exe
 5) Создать папку "tempFile" в корне диска, где запускается проект
 
 ## Configuration (database)
