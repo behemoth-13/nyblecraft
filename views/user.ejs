@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=title%></title>
+    <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="/../css/style.css">
+</head>
+<body>
+<div class="data-table">
+    <table border="1" cellpadding="7" cellspacing="7">
+        <tr>
+            <th width="50px">No</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+
+        <% if(data.length){
+
+        for(var i = 0;i < data.length;i++) { %>
+
+        <tr>
+            <td><%=(i+1)%></td>
+            <td><%=data[i].t_first_name%></td>
+            <td>
+                <a class="a-inside convert" href="javascript:void(0)" onClick="convert('<%=data[i].t_first_name%>')">IMAGE to PDF</a>
+            </td>
+        </tr>
+        <% }
+
+        }else{ %>
+        <tr>
+            <td colspan="5">No Data</td>
+        </tr>
+        <% } %>
+    </table>
+</div>
+
+<div class="page-data">
+    <form method="post" action="" id="the-form">
+        <table cellpadding="11">
+            <tr>
+                <td class="label">Enter firstName</td><td>: <input type="text" id="firstName"></td>
+            </tr>
+            <tr>
+                <td class="label"></td>
+                <td>
+                    &nbsp; <input type="button" value="Save" onClick="convertByName()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div class="page-data">
+    <ul class="msg-area"></ul>
+</div>
+
+<script>
+
+    function convert(firstName){
+
+        $.ajax({
+            url:"/api/user/"+firstName,
+            type: 'POST',
+            success: function(data, textStatus, xhr) {
+                //window.location.reload()
+                var msg = '';
+                if (true == JSON.parse(xhr.responseText).msg) {
+                    msg +='<li>'+'conversion complete'+'</li>';
+                } else {
+                    msg +='<li>'+'conversion not complete'+'</li>';
+                }
+                $(".msg-area").html(msg);
+                return false;
+            },
+            error:function(xhr, status, error){
+                var msg = '';
+                if (true == JSON.parse(xhr.responseText).msg) {
+                    msg +='<li>'+'conversion complete'+'</li>';
+                } else {
+                    msg +='<li>'+'conversion not complete'+'</li>';
+                }
+                $(".msg-area").html(msg);
+                return false;
+            }
+        });
+    }
+
+    function convertByName(){
+        var firstName = document.getElementById("firstName").value;
+        convert(firstName);
+    }
+</script>
+</body>
+</html>
